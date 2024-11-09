@@ -1,6 +1,6 @@
 
-path := ..\windowstemp
 appname := windowstemp
+path := ..\$(appname)
 bin := $(path)\bin
 bin_object := $(bin)\object
 bin_debug := $(bin)\debug

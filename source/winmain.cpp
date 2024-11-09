@@ -26,7 +26,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
   HWND hWnd;
   hWnd = CreateWindow(
     szAppName,
-    "A Basic Window the Hard Way",
+    "Windows Programming",
     WS_OVERLAPPEDWINDOW,
     CW_USEDEFAULT,
     CW_USEDEFAULT,

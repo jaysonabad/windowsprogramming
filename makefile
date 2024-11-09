@@ -1,11 +1,11 @@
 
 appname := windowstemp
-path := ..\$(appname)
-bin := $(path)\bin
-bin_object := $(bin)\object
-bin_debug := $(bin)\debug
-bin_release := $(bin)\release
-source := $(path)\source
+path := ../$(appname)
+bin := $(path)/bin
+bin_object := $(bin)/object
+bin_debug := $(bin)/debug
+bin_release := $(bin)/release
+source := $(path)/source
 
 c_flags := -O3 -Wall -std=c++1z -static-libstdc++ -static-libgcc
 windows_flag := -mwindows
@@ -25,4 +25,4 @@ run:
 	$(bin_debug)/windowstemp
 
 clean:
-	del $(bin_object)/*.o $(bin_debug)/*.exe
+	rm $(bin_object)/*.o $(bin_debug)/*.exe

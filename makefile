@@ -13,8 +13,8 @@ object := winmain.o
 
 build: $(object)
 	g++ -s $(c_flags) $(windows_flag) \
-			$(bin_object)/winmain.o \
-			-o $(bin)/windowstemp
+	       $(bin_object)/winmain.o \
+	    -o $(bin)/windowstemp
 
 winmain.o:
 	g++ -c $(source)/winmain.cpp -o $(bin_object)/winmain.o

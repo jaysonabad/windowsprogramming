@@ -6,7 +6,9 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 
-  static LPCTSTR szAppName = "MyApp";
+  // Register the window class
+
+  static LPCTSTR szAppName = "WindowsProgramming";
   WNDCLASSEX window;
   window.cbSize = sizeof(WNDCLASSEX);
   window.style = CS_HREDRAW | CS_VREDRAW;
@@ -23,6 +25,8 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
   RegisterClassEx(&window);
 
+  // Create the window
+
   HWND hWnd;
   hWnd = CreateWindow(
     szAppName,
@@ -38,6 +42,28 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
     0
   );
 
+  HWND hwndbutton;
+  hwndbutton = CreateWindow(
+    "BUTTON",
+    "OK",
+    WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
+    10, // x position
+    10, // y position
+    100, // button width
+    100, // button height
+    hWnd, // parent window
+    NULL, // no menu
+    hInstance,
+    NULL // pointer not needed
+  );
+
+  // Check the window handle value
+
+  if(hWnd == NULL) {
+    return 0;
+  }
+
+  // Show the window
   ShowWindow(hWnd, nCmdShow);
   UpdateWindow(hWnd);
 

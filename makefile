@@ -25,5 +25,4 @@ run:
 	$(bin_debug)/windowstemp
 
 clean:
-	del $(bin_object)\*.o
-	del $(bin_debug)\*.exe
+	del $(bin_object)/*.o $(bin_debug)/*.exe

@@ -22,7 +22,8 @@ winmain.o:
 	g++ -c $(source)/winmain.cpp -o $(bin_object)/winmain.o
 
 run:
-	$(bin)/windowstemp
+	$(bin_debug)/windowstemp
 
 clean:
-	del $(bin)\*.exe $(bin_object)\*.o
+	del $(bin_object)\*.o
+	del $(bin_debug)\*.exe

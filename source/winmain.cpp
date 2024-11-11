@@ -1,11 +1,13 @@
 #include <windows.h>
+#include <test.h>
 
 #pragma args n used
+
+Test test;
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-
   // Register the window class
 
   static LPCTSTR szAppName = "WindowsProgramming";
@@ -30,7 +32,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
   HWND hWnd;
   hWnd = CreateWindow(
     szAppName,
-    "Windows Programming",
+    test.message(),
     WS_OVERLAPPEDWINDOW,
     CW_USEDEFAULT,
     CW_USEDEFAULT,

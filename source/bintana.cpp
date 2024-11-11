@@ -1,5 +1,6 @@
 #include <windows.h>
 #include <bintana.h>
+#include <components/button.h>
 #pragma args n used
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -36,20 +37,10 @@ Bintana::Bintana(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, 
     0
   );
 
-  this->hwndbutton = CreateWindow(
-    "BUTTON",
-    "OK",
-    WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
-    10, // x position
-    10, // y position
-    100, // button width
-    100, // button height
-    this->hWnd, // parent window
-    NULL, // no menu
-    hInstance,
-    NULL // pointer not needed
-  );
-
+  this->button.setText("Noysoft");
+  this->button.setSize(100, 100);
+  this->button.setPosition(10, 10);
+  this->button.create(hInstance, this->hWnd);
 }
 
 void Bintana::windowloop(int nCmdShow) {

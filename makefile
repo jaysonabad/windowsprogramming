@@ -18,7 +18,7 @@ object := main.o bintana.o button.o
 build: $(object)
 	g++ -s $(c_flags) \
 	       $(windows_flag) \
-         $(bin_object)/button.o \
+				 $(bin_object)/button.o \
 	       $(bin_object)/bintana.o \
 	       $(bin_object)/main.o \
 	    -o $(bin_debug)/windowstemp

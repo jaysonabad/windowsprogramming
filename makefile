@@ -16,12 +16,12 @@ link := -lgdi32 -luser32 -lkernel32
 object := main.o bintana.o button.o
 
 build: $(object)
-	g++ -s $(c_flags) \
+  g++ -s $(c_flags) \
          $(windows_flag) \
          $(bin_object)/button.o \
          $(bin_object)/bintana.o \
          $(bin_object)/main.o \
-	    -o $(bin_debug)/windowstemp
+      -o $(bin_debug)/windowstemp
 
 main.o:
 	g++ -c -I $(header) $(source)/main.cpp -o $(bin_object)/main.o

@@ -19,7 +19,7 @@ public:
 
   Button button;
 
-  void windowloop(int);
+  void start(int);
 
 };
 

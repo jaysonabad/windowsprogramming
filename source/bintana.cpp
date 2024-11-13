@@ -37,13 +37,16 @@ Bintana::Bintana(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, 
     0
   );
 
+  // window layouts
+
   this->button.setText("Noysoft");
   this->button.setSize(100, 100);
   this->button.setPosition(10, 10);
   this->button.create(hInstance, this->hWnd);
+
 }
 
-void Bintana::windowloop(int nCmdShow) {
+void Bintana::start(int nCmdShow) {
   ShowWindow(this->hWnd, nCmdShow);
   UpdateWindow(this->hWnd);
 
@@ -60,6 +63,8 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     RECT aRect;
 
     switch (msg) {
+
+      // to draw to the screen
       case WM_PAINT:
         hDC = BeginPaint(hWnd, &sPaint);
         GetClientRect(hWnd, &aRect);

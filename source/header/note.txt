@@ -1,0 +1,2 @@
+1. Create an abstract class for component's handle
+2. Create an abstract class for activity update

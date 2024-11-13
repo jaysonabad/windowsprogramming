@@ -5,7 +5,7 @@
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 
   Bintana bintana(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
-  bintana.windowloop(nCmdShow);
+  bintana.start(nCmdShow);
 
   return 0;
 }

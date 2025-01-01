@@ -1,0 +1,15 @@
+#define BUTTON_ID      1001
+this->button.create(hInstance, this->hWnd, (HMENU)BUTTON1);
+
+switch (HIWORD(wParam)) {
+  case BN_CLICKED:
+    if(LOWORD(wParam) == BUTTON1){
+      MessageBox(hWnd, "Button 1 Clicked", "Message Box", MB_OK );
+      return 0;
+    }
+    if(LOWORD(wParam) == BUTTON2){
+      MessageBox(hWnd, "Button 2 Clicked", "Message Box", MB_OK );
+      return 0;
+    }
+    return 0;
+}

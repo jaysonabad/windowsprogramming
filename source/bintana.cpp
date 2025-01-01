@@ -1,4 +1,6 @@
-#define WINVER 0x0501
+#define BUTTON1      1001
+#define BUTTON2      1002
+
 #include <windows.h>
 #include <bintana.h>
 #include <components/button.h>
@@ -43,7 +45,12 @@ Bintana::Bintana(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, 
   this->button.setText("Noysoft");
   this->button.setSize(100, 100);
   this->button.setPosition(10, 10);
-  this->button.create(hInstance, this->hWnd);
+  this->button.create(hInstance, this->hWnd, (HMENU)BUTTON1);
+
+  this->button.setText("Button2");
+  this->button.setSize(100, 100);
+  this->button.setPosition(200, 10);
+  this->button.create(hInstance, this->hWnd, (HMENU)BUTTON2);
 
 }
 
@@ -72,13 +79,19 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
         return 0;
 
       case WM_COMMAND:
-        switch (wParam) {
+        switch (HIWORD(wParam)) {
           case BN_CLICKED:
-            MessageBox( hWnd, "Start", "Message Box", MB_OK );
-            break;
+            if(LOWORD(wParam) == BUTTON1){
+              MessageBox(hWnd, "Button 1 Clicked", "Message Box", MB_OK );
+              return 0;
+            }
+            if(LOWORD(wParam) == BUTTON2){
+              MessageBox(hWnd, "Button 2 Clicked", "Message Box", MB_OK );
+              return 0;
+            }
+            return 0;
         }
         return 0;
-
       case WM_DESTROY:
         PostQuitMessage(WM_QUIT);
         return 0;

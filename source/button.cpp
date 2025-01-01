@@ -13,7 +13,7 @@ void Button::setPosition(int x, int y) {
   this->x = x;
   this->y = y;
 }
-void Button::create(HINSTANCE hInstance, HWND parent) {
+void Button::create(HINSTANCE hInstance, HWND parent, HMENU bId) {
   this->button = CreateWindow(
     "BUTTON",
     this->text,
@@ -23,7 +23,7 @@ void Button::create(HINSTANCE hInstance, HWND parent) {
     this->width, // button width
     this->height, // button height
     parent, // parent window
-    NULL, // no menu
+    bId, // no menu
     hInstance,
     NULL // pointer not needed
   );

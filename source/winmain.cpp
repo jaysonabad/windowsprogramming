@@ -84,7 +84,23 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
   PAINTSTRUCT sPaint;
   RECT aRect;
 
+  int wmId, wmEvent;
+
   switch (msg) {
+    case WM_COMMAND:
+      wmId = LOWORD(wParam);
+      wmEvent = HIWORD(wParam);
+      switch (wmId) {
+        case IDM_ABOUT:
+          DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+          break;
+        case IDM_EXIT:
+          DestroyWindow(hWnd);
+          break;
+        default:
+          return DefWindowProc(hWnd, message, wParam, lParam);
+      }
+      break;
     case WM_PAINT:
       hDC = BeginPaint(hWnd, &sPaint);
       GetClientRect(hWnd, &aRect);
@@ -96,8 +112,37 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
         &aRect,
         DT_SINGLELINE | DT_CENTER | DT_VCENTER
       );
+
+      TRIVERTEX vertex[3];
+      vertex[0].x = 150;
+      vertex[0].y = 0;
+      vertex[0].Red = 0xff00;
+      vertex[0].Green = 0x8000;
+      vertex[0].Blue = 0x0000;
+      vertex[0].Alpha = 0x0000;
+
+      vertex[0].x = 0;
+      vertex[0].y = 150;
+      vertex[0].Red = 0x9000;
+      vertex[0].Green = 0x0000;
+      vertex[0].Blue = 0x9000;
+      vertex[0].Alpha = 0x0000;
+
+      vertex[0].x = 300;
+      vertex[0].y = 150;
+      vertex[0].Red = 0x9000;
+      vertex[0].Green = 0x0000;
+      vertex[0].Blue = 0x9000;
+      vertex[0].Alpha = 0x0000;
+
+      GRADIENT_TRIANGLE gTriangle;
+      gTriangle.Vertex1 = 0;
+      gTriangle.Vertex2 = 1;
+      gTriangle.Vertex3 = 2;
+
+      GradientFill(hdc, vertex, 3, &gTriangle, 1, GRADIENT_FILL_TRIANGLE);
       EndPaint(hWnd, &sPaint);
-      return 0;
+      break;
 
     case WM_DESTROY:
       PostQuitMessage(WM_QUIT);

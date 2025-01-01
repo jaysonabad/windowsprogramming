@@ -1,3 +1,4 @@
+#define WINVER 0x0501
 #include <windows.h>
 #include <bintana.h>
 #include <components/button.h>
@@ -29,8 +30,8 @@ Bintana::Bintana(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, 
     WS_OVERLAPPEDWINDOW,
     CW_USEDEFAULT,
     CW_USEDEFAULT,
-    300,
-    300,
+    1200,
+    700,
     0,
     0,
     hInstance,
@@ -58,25 +59,24 @@ void Bintana::start(int nCmdShow) {
 }
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
-    HDC hDC;
-    PAINTSTRUCT sPaint;
+
+    HDC hdc;
+    PAINTSTRUCT ps;
     RECT aRect;
 
     switch (msg) {
-
       // to draw to the screen
       case WM_PAINT:
-        hDC = BeginPaint(hWnd, &sPaint);
-        GetClientRect(hWnd, &aRect);
-        SetBkMode(hDC, TRANSPARENT);
-        DrawText(
-          hDC,
-          "Hello, Windows!",
-          -1,
-          &aRect,
-          DT_SINGLELINE | DT_CENTER | DT_VCENTER
-        );
-        EndPaint(hWnd, &sPaint);
+        hdc = BeginPaint(hWnd, &ps);
+        EndPaint(hWnd, &ps);
+        return 0;
+
+      case WM_COMMAND:
+        switch (wParam) {
+          case BN_CLICKED:
+            MessageBox( hWnd, "Start", "Message Box", MB_OK );
+            break;
+        }
         return 0;
 
       case WM_DESTROY:

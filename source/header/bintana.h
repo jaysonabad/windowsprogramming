@@ -14,7 +14,6 @@ public:
   LPCTSTR szAppName;
   WNDCLASSEX wndw;
   HWND hWnd;
-  HWND hwndbutton;
   MSG msg;
 
   Button button;

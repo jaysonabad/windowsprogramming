@@ -1,7 +1,12 @@
 #include <windows.h>
 #include <components/frame.h>
 
+#define BUTTON1      1001
+#define BUTTON2      1002
+#define FRAME1       1003
+
 Frame::Frame(){}
+
 void Frame::setSize(int width, int height){
   this->width = width;
   this->height = height;
@@ -11,18 +16,21 @@ void Frame::setPosition(int x, int y) {
   this->y = y;
 }
 void Frame::create(HINSTANCE hInstance, HWND parent, HMENU id) {
-  this->frame = CreateWindow(
+  this->hFrame = CreateWindow(
     "static",
     NULL,
     WS_CHILD | WS_VISIBLE,
-    this->x,
-    this->y,
-    this->width,
-    this->height,
-    parent,
-    id,
+    this->x, // x position
+    this->y, // y position
+    this->width, // button width
+    this->height, // button height
+    parent, // parent window
+    id, // menu
     hInstance,
-    NULL
+    NULL // pointer not needed
   );
+}
+HWND Frame::getHandle(){
+  return this->hFrame;
 }
 Frame::~Frame(){}

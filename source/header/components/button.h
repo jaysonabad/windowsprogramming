@@ -11,7 +11,7 @@ public:
   int height;
   int x;
   int y;
-  HWND button;
+  HWND hButton;
   void setText(LPCTSTR);
   void setSize(int, int);
   void setPosition(int, int);

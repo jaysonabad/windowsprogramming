@@ -48,13 +48,12 @@ Bintana::Bintana(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, 
   this->button.setText("Noysoft");
   this->button.setSize(100, 100);
   this->button.setPosition(10, 10);
-  this->button.create(hInstance, this->hWnd, (HMENU)BUTTON1);
+  this->button.create(hInstance, this->frame.getHandle(), (HMENU)BUTTON1);
 
   this->button.setText("Button2");
   this->button.setSize(100, 100);
   this->button.setPosition(200, 10);
-  this->button.create(hInstance, this->hWnd, (HMENU)BUTTON2);
-
+  this->button.create(hInstance, this->frame.getHandle(), (HMENU)BUTTON2);
 }
 
 void Bintana::start(int nCmdShow) {
@@ -68,7 +67,6 @@ void Bintana::start(int nCmdShow) {
   }
 }
 
-
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 
     static POINT apt[4];
@@ -77,24 +75,22 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     PAINTSTRUCT ps;
     RECT aRect;
 
+    Frame frame;
+
     switch (msg) {
       // to draw to the screen
-
       case WM_PAINT:
         hdc = BeginPaint(hWnd, &ps);
         EndPaint(hWnd, &ps);
         return 0;
       case WM_COMMAND:
-        switch (HIWORD(wParam)) {
-          case BN_CLICKED:
-            if(LOWORD(wParam) == BUTTON1){
-              MessageBox(hWnd, "Button 1 Clicked", "Message Box", MB_OK );
-              return 0;
-            }
-            if(LOWORD(wParam) == BUTTON2){
-              MessageBox(hWnd, "Button 2 Clicked", "Message Box", MB_OK );
-              return 0;
-            }
+        switch (wParam) {
+          case BUTTON1:
+            MessageBox(frame.getHandle(), "Button 1 Clicked", "Message Box", MB_OK );
+            ShowWindow(frame.getHandle(), SW_HIDE);
+            return 0;
+          case BUTTON2:
+            MessageBox(hWnd, "Button 2 Clicked", "Message Box", MB_OK );
             return 0;
         }
         return 0;

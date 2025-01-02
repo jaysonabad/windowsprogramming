@@ -1,4 +1,7 @@
-#define BUTTON_ID      1001
+#define BUTTON1   1001
+#define BUTTON2   1002
+(any number is ok, letters, or combination of letters and numbers to form an address(ID))
+
 this->button.create(hInstance, this->hWnd, (HMENU)BUTTON1);
 
 switch (HIWORD(wParam)) {

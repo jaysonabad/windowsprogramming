@@ -1,10 +1,11 @@
-#define BUTTON1      1001
-#define BUTTON2      1002
-
 #include <windows.h>
 #include <bintana.h>
 #include <components/button.h>
-#pragma args n used
+#include <components/frame.h>
+
+#define BUTTON1      1001
+#define BUTTON2      1002
+#define FRAME1       1003
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -40,22 +41,9 @@ Bintana::Bintana(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, 
     0
   );
 
-  // window layouts
-  HWND frame;
-
-  frame = CreateWindow(
-    "static",
-    NULL,
-    WS_VISIBLE | WS_CHILD | WS_SYSMENU,
-    10, // x position
-    10, // y position
-    500, // width
-    300, // height
-    this->hWnd, // parent window
-    NULL, // no menu
-    hInstance,
-    NULL // pointer not needed
-  );
+  this->frame.setSize(500, 400);
+  this->frame.setPosition(10, 10);
+  this->frame.create(hInstance, this->hWnd, (HMENU)FRAME1);
 
   this->button.setText("Noysoft");
   this->button.setSize(100, 100);
@@ -96,7 +84,6 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
         hdc = BeginPaint(hWnd, &ps);
         EndPaint(hWnd, &ps);
         return 0;
-
       case WM_COMMAND:
         switch (HIWORD(wParam)) {
           case BN_CLICKED:

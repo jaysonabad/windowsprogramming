@@ -3,7 +3,7 @@
 
 #include <windows.h>
 #include <components/button.h>
-#pragma args n used
+#include <components/frame.h>
 
 class Bintana {
 
@@ -18,6 +18,7 @@ public:
   MSG msg;
 
   Button button;
+  Frame frame;
 
   void start(int);
 

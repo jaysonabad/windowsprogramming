@@ -13,11 +13,13 @@ c_flags := -O3 -Wall -std=c++1z -static-libstdc++ -static-libgcc
 windows_flag := -mwindows
 link := -lgdi32 -luser32 -lkernel32
 
-object := main.o bintana.o button.o
+object := main.o bintana.o button.o  \
+          frame.o
 
 build: $(object)
 	g++ -s $(c_flags) \
          $(windows_flag) \
+				 $(bin_object)/frame.o \
          $(bin_object)/button.o \
          $(bin_object)/bintana.o \
          $(bin_object)/main.o \
@@ -31,6 +33,9 @@ bintana.o:
 
 button.o:
 	g++ -c -I $(header) $(source)/button.cpp -o $(bin_object)/button.o
+
+frame.o:
+	g++ -c -I $(header) $(source)/frame.cpp -o $(bin_object)/frame.o
 
 run:
 	$(bin_debug)/windowstemp

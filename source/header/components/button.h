@@ -13,8 +13,8 @@ public:
   int y;
   HWND button;
   void setText(LPCTSTR);
-  void create(HINSTANCE, HWND, HMENU);
   void setSize(int, int);
   void setPosition(int, int);
+  void create(HINSTANCE, HWND, HMENU);
 };
 #endif

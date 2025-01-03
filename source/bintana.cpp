@@ -26,34 +26,8 @@ Bintana::Bintana(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, 
   this->wndw.hIconSm = 0;
 
   RegisterClassEx(&wndw);
-
-  this->hWnd = CreateWindow(
-    szAppName,
-    "Test with class",
-    WS_OVERLAPPEDWINDOW,
-    CW_USEDEFAULT,
-    CW_USEDEFAULT,
-    1200,
-    700,
-    0,
-    0,
-    hInstance,
-    0
-  );
-
-  this->frame.setSize(500, 400);
-  this->frame.setPosition(10, 10);
-  this->frame.create(hInstance, this->hWnd, (HMENU)FRAME1);
-
-  this->button.setText("Noysoft");
-  this->button.setSize(100, 100);
-  this->button.setPosition(10, 10);
-  this->button.create(hInstance, this->frame.getHandle(), (HMENU)BUTTON1);
-
-  this->button.setText("Button2");
-  this->button.setSize(100, 100);
-  this->button.setPosition(200, 10);
-  this->button.create(hInstance, this->frame.getHandle(), (HMENU)BUTTON2);
+  create(hInstance);
+  components(hInstance);
 }
 
 void Bintana::start(int nCmdShow) {
@@ -67,8 +41,39 @@ void Bintana::start(int nCmdShow) {
   }
 }
 
-LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+void Bintana::create(HINSTANCE hInstance) {
+  this->hWnd = CreateWindow(
+    szAppName,
+    "Test with class",
+    WS_OVERLAPPEDWINDOW,
+    CW_USEDEFAULT,
+    CW_USEDEFAULT,
+    1200,
+    700,
+    0,
+    0,
+    hInstance,
+    0
+  );
+}
 
+void Bintana::components(HINSTANCE hInstance){
+  frame.setSize(500, 400);
+  frame.setPosition(10, 10);
+  frame.create(hInstance, hWnd, (HMENU)FRAME1);
+
+  button.setText("Noysoft");
+  button.setSize(100, 100);
+  button.setPosition(10, 10);
+  button.create(hInstance, this->frame.getHandle(), (HMENU)BUTTON1);
+
+  button.setText("Button2");
+  button.setSize(100, 100);
+  button.setPosition(200, 10);
+  button.create(hInstance, hWnd, (HMENU)BUTTON2);
+}
+
+LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     static POINT apt[4];
     int cxClient, cyClient;
     HDC hdc;
@@ -84,14 +89,16 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
         EndPaint(hWnd, &ps);
         return 0;
       case WM_COMMAND:
-        switch (wParam) {
-          case BUTTON1:
-            MessageBox(frame.getHandle(), "Button 1 Clicked", "Message Box", MB_OK );
-            ShowWindow(frame.getHandle(), SW_HIDE);
-            return 0;
-          case BUTTON2:
-            MessageBox(hWnd, "Button 2 Clicked", "Message Box", MB_OK );
-            return 0;
+        if((HIWORD(wParam) == BN_CLICKED) && (lParam != 0)) {
+          switch(LOWORD(wParam)) {
+            case BUTTON1:
+              MessageBox(frame.getHandle(), "Button 1 Clicked", "Message Box", MB_OK );
+              ShowWindow(frame.getHandle(), SW_HIDE);
+              return 0;
+            case BUTTON2:
+              MessageBox(hWnd, "Button 2 Clicked", "Message Box", MB_OK );
+              return 0;
+          }
         }
         return 0;
       case WM_DESTROY:

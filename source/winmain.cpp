@@ -1,15 +1,12 @@
 #include <windows.h>
 #include <test.h>
 
-#pragma args n used
-
 Test test;
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
   // Register the window class
-
   static LPCTSTR szAppName = "WindowsProgramming";
   WNDCLASSEX window;
   window.cbSize = sizeof(WNDCLASSEX);

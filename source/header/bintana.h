@@ -12,6 +12,7 @@ public:
   ~Bintana();
 
   LPCTSTR szAppName;
+  HINSTANCE hInstance;
   WNDCLASSEX wndw;
   HWND hWnd;
   MSG msg;
@@ -20,7 +21,8 @@ public:
   Frame frame;
 
   void start(int);
-
+  void create(HINSTANCE);
+  void components(HINSTANCE);
 };
 
 #endif

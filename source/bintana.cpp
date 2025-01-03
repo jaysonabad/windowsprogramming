@@ -12,6 +12,7 @@ LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
 Button button2;
 Frame frame;
 WNDPROC buttonProc;
+HWND edit;
 
 Bintana::Bintana(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 
@@ -34,24 +35,13 @@ Bintana::Bintana(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, 
   components(hInstance);
 }
 
-void Bintana::start(int nCmdShow) {
-  ShowWindow(this->hWnd, nCmdShow);
-  UpdateWindow(this->hWnd);
-
-  MSG msg;
-  while(GetMessage(&msg, 0, 0, 0) == TRUE) {
-    TranslateMessage(&msg);
-    DispatchMessage(&msg);
-  }
-}
-
 void Bintana::create(HINSTANCE hInstance) {
   this->hWnd = CreateWindow(
     szAppName,
     "Test with class",
     WS_OVERLAPPEDWINDOW,
-    CW_USEDEFAULT,
-    CW_USEDEFAULT,
+    80,
+    20,
     1200,
     700,
     0,
@@ -69,20 +59,26 @@ void Bintana::components(HINSTANCE hInstance){
   button1.setText("Noysoft");
   button1.setSize(100, 100);
   button1.setPosition(10, 10);
-  button1.create(hInstance, frame.getHandle(), (HMENU)BUTTON1);
-}
+  button1.create(hInstance, hWnd, (HMENU)BUTTON1);
 
-LRESULT CALLBACK ButtonProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
-  switch (msg) {
-    case WM_LBUTTONDOWN:
-      //MessageBox(hWnd, "Button 3 Clicked", "Message Box", MB_OK );
-      ShowWindow(frame.getHandle(), SW_HIDE);
-      ShowWindow(button2.getHandle(), SW_HIDE);
-      return 0;
-    case WM_LBUTTONUP:
-      return 0;
-  }
-  return CallWindowProc(buttonProc, hWnd, msg, wParam, lParam);
+  button2.setText("Button2");
+  button2.setSize(100, 100);
+  button2.setPosition(100, 10);
+  button2.create(NULL, hWnd, (HMENU)BUTTON2);
+
+  edit = CreateWindow(
+    "edit",
+    NULL,
+    WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
+    200, // x position
+    200, // y position
+    100, // button width
+    100, // button height
+    hWnd, // parent window
+    NULL, // menu
+    hInstance,
+    NULL // pointer not needed
+  );
 }
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
@@ -96,19 +92,11 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 
     switch (msg) {
       // to draw to the screen
-      case WM_CREATE:
-        button2.setText("Button3");
-        button2.setSize(100, 100);
-        button2.setPosition(510, 10);
-        button2.create(NULL, hWnd, (HMENU)BUTTON2);
-        buttonProc = (WNDPROC) SetWindowLong(button2.getHandle(), GWL_WNDPROC, (LONG) ButtonProc);
-        hIcon = LoadIcon(NULL, IDI_WARNING);
-        SendMessage(icon_button, BM_SETIMAGE, IMAGE_ICON, (LPARAM)hIcon);
-        return 0;
       case WM_PAINT:
         hdc = BeginPaint(hWnd, &ps);
         EndPaint(hWnd, &ps);
         return 0;
+      // Button events
       case WM_COMMAND:
         if((HIWORD(wParam) == BN_CLICKED) && (lParam != 0)) {
           switch(LOWORD(wParam)) {
@@ -118,16 +106,30 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
               return 0;
             case BUTTON2:
               MessageBox(hWnd, "Button 2 Clicked", "Message Box", MB_OK );
+              ShowWindow(frame.getHandle(), SW_SHOW);
               return 0;
           }
         }
         return 0;
+      // Destroy the window
       case WM_DESTROY:
         PostQuitMessage(WM_QUIT);
         return 0;
       default:
         return DefWindowProc(hWnd, msg, wParam, lParam);
     }
+}
+
+void Bintana::start(int nCmdShow) {
+  ShowWindow(this->hWnd, nCmdShow);
+  UpdateWindow(this->hWnd);
+
+  MSG msg;
+  while(GetMessage(&msg, 0, 0, 0) == TRUE) {
+    TranslateMessage(&msg);
+    DispatchMessage(&msg);
+    // Game Loop
+  }
 }
 
 Bintana::~Bintana(){}

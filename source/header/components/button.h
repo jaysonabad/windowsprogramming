@@ -16,5 +16,6 @@ public:
   void setSize(int, int);
   void setPosition(int, int);
   void create(HINSTANCE, HWND, HMENU);
+  HWND getHandle();
 };
 #endif

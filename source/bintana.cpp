@@ -5,7 +5,11 @@
 
 #define BUTTON1      1001
 #define BUTTON2      1002
-#define FRAME1       1003
+#define BUTTON3      1004
+#define FRAME1       1100
+
+Button button2;
+Frame frame;
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -62,15 +66,25 @@ void Bintana::components(HINSTANCE hInstance){
   frame.setPosition(10, 10);
   frame.create(hInstance, hWnd, (HMENU)FRAME1);
 
-  button.setText("Noysoft");
-  button.setSize(100, 100);
-  button.setPosition(10, 10);
-  button.create(hInstance, this->frame.getHandle(), (HMENU)BUTTON1);
+  button1.setText("Noysoft");
+  button1.setSize(100, 100);
+  button1.setPosition(10, 10);
+  button1.create(hInstance, frame.getHandle(), (HMENU)BUTTON1);
+}
 
-  button.setText("Button2");
-  button.setSize(100, 100);
-  button.setPosition(200, 10);
-  button.create(hInstance, hWnd, (HMENU)BUTTON2);
+WNDPROC buttonProc;
+
+LRESULT CALLBACK ButtonProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+  switch (msg) {
+    case WM_LBUTTONDOWN:
+      //MessageBox(hWnd, "Button 3 Clicked", "Message Box", MB_OK );
+      ShowWindow(frame.getHandle(), SW_HIDE);
+      ShowWindow(button2.getHandle(), SW_HIDE);
+      return 0;
+    case WM_LBUTTONUP:
+      return 0;
+  }
+  return CallWindowProc(buttonProc, hWnd, msg, wParam, lParam);
 }
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
@@ -79,11 +93,20 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     HDC hdc;
     PAINTSTRUCT ps;
     RECT aRect;
-
-    Frame frame;
+    HICON hIcon;
+    HWND icon_button;
 
     switch (msg) {
       // to draw to the screen
+      case WM_CREATE:
+        button2.setText("Button3");
+        button2.setSize(100, 100);
+        button2.setPosition(510, 10);
+        button2.create(NULL, hWnd, (HMENU)BUTTON2);
+        buttonProc = (WNDPROC) SetWindowLong(button2.getHandle(), GWL_WNDPROC, (LONG) ButtonProc);
+        hIcon = LoadIcon(NULL, IDI_WARNING);
+        SendMessage(icon_button, BM_SETIMAGE, IMAGE_ICON, (LPARAM)hIcon);
+        return 0;
       case WM_PAINT:
         hdc = BeginPaint(hWnd, &ps);
         EndPaint(hWnd, &ps);

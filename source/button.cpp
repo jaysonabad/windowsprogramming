@@ -29,4 +29,8 @@ void Button::create(HINSTANCE hInstance, HWND parent, HMENU id) {
   );
 }
 
+HWND Button::getHandle() {
+  return this->hButton;
+}
+
 Button::~Button(){}

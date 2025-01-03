@@ -8,10 +8,10 @@
 #define BUTTON3      1004
 #define FRAME1       1100
 
+LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
 Button button2;
 Frame frame;
-
-LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+WNDPROC buttonProc;
 
 Bintana::Bintana(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 
@@ -71,8 +71,6 @@ void Bintana::components(HINSTANCE hInstance){
   button1.setPosition(10, 10);
   button1.create(hInstance, frame.getHandle(), (HMENU)BUTTON1);
 }
-
-WNDPROC buttonProc;
 
 LRESULT CALLBACK ButtonProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
   switch (msg) {

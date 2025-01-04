@@ -16,7 +16,7 @@ void Frame::setPosition(int x, int y) {
   this->y = y;
 }
 void Frame::create(HINSTANCE hInstance, HWND parent, HMENU id) {
-  this->hFrame = CreateWindow(
+  this->hwndFrame = CreateWindow(
     "static",
     NULL,
     WS_CHILD | WS_VISIBLE,
@@ -31,6 +31,6 @@ void Frame::create(HINSTANCE hInstance, HWND parent, HMENU id) {
   );
 }
 HWND Frame::getHandle(){
-  return this->hFrame;
+  return this->hwndFrame;
 }
 Frame::~Frame(){}

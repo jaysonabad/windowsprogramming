@@ -11,7 +11,7 @@ public:
   int height;
   int x;
   int y;
-  HWND hFrame;
+  HWND hwndFrame;
   void setSize(int, int);
   void setPosition(int, int);
   void create(HINSTANCE, HWND, HMENU);

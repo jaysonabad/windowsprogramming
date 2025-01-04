@@ -14,7 +14,7 @@ void Button::setPosition(int x, int y) {
   this->y = y;
 }
 void Button::create(HINSTANCE hInstance, HWND parent, HMENU id) {
-  this->hButton = CreateWindow(
+  this->hwndButton = CreateWindow(
     "button",
     this->text,
     WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
@@ -30,7 +30,7 @@ void Button::create(HINSTANCE hInstance, HWND parent, HMENU id) {
 }
 
 HWND Button::getHandle() {
-  return this->hButton;
+  return this->hwndButton;
 }
 
 Button::~Button(){}

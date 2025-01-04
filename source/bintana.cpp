@@ -2,6 +2,7 @@
 #include <bintana.h>
 #include <components/button.h>
 #include <components/frame.h>
+#include <derive.h>
 
 #define BUTTON1      1001
 #define BUTTON2      1002
@@ -54,12 +55,12 @@ void Bintana::create(HINSTANCE hInstance) {
 void Bintana::components(HINSTANCE hInstance){
   frame.setSize(500, 400);
   frame.setPosition(10, 10);
-  frame.create(hInstance, hWnd, (HMENU)FRAME1);
+  frame.create(NULL, hWnd, (HMENU)FRAME1);
 
   button1.setText("Noysoft");
   button1.setSize(100, 100);
   button1.setPosition(10, 10);
-  button1.create(hInstance, hWnd, (HMENU)BUTTON1);
+  button1.create(NULL, hWnd, (HMENU)BUTTON1);
 
   button2.setText("Button2");
   button2.setSize(100, 100);
@@ -67,16 +68,16 @@ void Bintana::components(HINSTANCE hInstance){
   button2.create(NULL, hWnd, (HMENU)BUTTON2);
 
   edit = CreateWindow(
-    "edit",
+    "text",
     NULL,
-    WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
+    WS_BORDER|WS_CHILD|WS_VISIBLE,
     200, // x position
     200, // y position
     100, // button width
     100, // button height
     hWnd, // parent window
     NULL, // menu
-    hInstance,
+    NULL,
     NULL // pointer not needed
   );
 }
@@ -89,6 +90,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     RECT aRect;
     HICON hIcon;
     HWND icon_button;
+    Derive derive;
 
     switch (msg) {
       // to draw to the screen
@@ -101,7 +103,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
         if((HIWORD(wParam) == BN_CLICKED) && (lParam != 0)) {
           switch(LOWORD(wParam)) {
             case BUTTON1:
-              MessageBox(frame.getHandle(), "Button 1 Clicked", "Message Box", MB_OK );
+              MessageBox(frame.getHandle(), derive.printsomething(), "Message Box", MB_OK );
               ShowWindow(frame.getHandle(), SW_HIDE);
               return 0;
             case BUTTON2:

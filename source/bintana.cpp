@@ -8,12 +8,13 @@
 #define BUTTON2      1002
 #define BUTTON3      1004
 #define FRAME1       1100
+#define EDIT_BOX1    1200
 
 LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
 Button button2;
 Frame frame;
 WNDPROC buttonProc;
-HWND edit;
+HWND hwndEdit;
 
 Bintana::Bintana(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 
@@ -67,16 +68,16 @@ void Bintana::components(HINSTANCE hInstance){
   button2.setPosition(100, 10);
   button2.create(NULL, hWnd, (HMENU)BUTTON2);
 
-  edit = CreateWindow(
+  hwndEdit = CreateWindow(
     "edit",
     NULL,
-    WS_BORDER|WS_CHILD|WS_VISIBLE,
-    500, // x position
-    500, // y position
-    100, // button width
-    100, // button height
+    WS_BORDER|WS_CHILD|WS_VISIBLE|WS_HSCROLL|WS_VSCROLL|ES_MULTILINE|ES_AUTOHSCROLL,
+    20, // x position
+    120, // y position
+    490, // button width
+    290, // button height
     hWnd, // parent window
-    NULL, // menu
+    (HMENU)EDIT_BOX1, // menu
     NULL, // hInstance
     NULL // pointer not needed
   );
@@ -105,10 +106,12 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
             case BUTTON1:
               MessageBox(frame.getHandle(), derive.printsomething(), "Message Box", MB_OK );
               ShowWindow(frame.getHandle(), SW_HIDE);
+              ShowWindow(hwndEdit, SW_HIDE);
               return 0;
             case BUTTON2:
               MessageBox(hWnd, "Button 2 Clicked", "Message Box", MB_OK );
               ShowWindow(frame.getHandle(), SW_SHOW);
+              ShowWindow(hwndEdit, SW_SHOW);
               button2.setPosition(100, 100);
               return 0;
           }

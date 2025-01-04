@@ -68,16 +68,16 @@ void Bintana::components(HINSTANCE hInstance){
   button2.create(NULL, hWnd, (HMENU)BUTTON2);
 
   edit = CreateWindow(
-    "text",
+    "edit",
     NULL,
     WS_BORDER|WS_CHILD|WS_VISIBLE,
-    200, // x position
-    200, // y position
+    500, // x position
+    500, // y position
     100, // button width
     100, // button height
     hWnd, // parent window
     NULL, // menu
-    NULL,
+    NULL, // hInstance
     NULL // pointer not needed
   );
 }
@@ -109,6 +109,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
             case BUTTON2:
               MessageBox(hWnd, "Button 2 Clicked", "Message Box", MB_OK );
               ShowWindow(frame.getHandle(), SW_SHOW);
+              button2.setPosition(100, 100);
               return 0;
           }
         }

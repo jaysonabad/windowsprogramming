@@ -9,8 +9,12 @@
 #define BUTTON3      1004
 #define FRAME1       1100
 #define EDIT_BOX1    1200
+#define IDT_TIMER1   1201
+#define IDT_TIMER2   1202
 
 LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
+VOID CALLBACK TimerProc(HWND, UINT, UINT, DWORD);
+Button button1;
 Button button2;
 Frame frame;
 WNDPROC buttonProc;
@@ -83,6 +87,11 @@ void Bintana::components(HINSTANCE hInstance){
   );
 }
 
+VOID CALLBACK TimerProc(HWND hWnd, UINT uMsg, UINT idEvent, DWORD dwTime){
+  MessageBox(NULL, "One second is passed, the timer procedure is called, killing the timer", "Timer procedure", MB_OK);
+  KillTimer(hWnd, idEvent);
+}
+
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     static POINT apt[4];
     int cxClient, cyClient;
@@ -98,6 +107,9 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
       case WM_PAINT:
         hdc = BeginPaint(hWnd, &ps);
         EndPaint(hWnd, &ps);
+
+        SetTimer(hWnd,IDT_TIMER1, 500,(TIMERPROC)NULL);
+        SetTimer(hWnd,IDT_TIMER2, 1000, (TIMERPROC)NULL);
         return 0;
       // Button events
       case WM_COMMAND:
@@ -106,24 +118,35 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
             case BUTTON1:
               MessageBox(frame.getHandle(), derive.printsomething(), "Message Box", MB_OK );
               ShowWindow(frame.getHandle(), SW_HIDE);
-              ShowWindow(hwndEdit, SW_HIDE);
+              //ShowWindow(hwndEdit, SW_HIDE);
               return 0;
             case BUTTON2:
               MessageBox(hWnd, "Button 2 Clicked", "Message Box", MB_OK );
               ShowWindow(frame.getHandle(), SW_SHOW);
               ShowWindow(hwndEdit, SW_SHOW);
-              button2.setPosition(100, 100);
+              SendMessage(button2.getHandle(), WM_SETTEXT, 0, (LPARAM)"Hello");
               return 0;
           }
         }
         return 0;
       // Destroy the window
+      case WM_TIMER:
+        switch (wParam) {
+          case IDT_TIMER1:
+            ShowWindow(frame.getHandle(), SW_HIDE);
+            return 0;
+          case IDT_TIMER2:
+            ShowWindow(frame.getHandle(), SW_SHOW);
+            return 0;
+        }
       case WM_DESTROY:
         PostQuitMessage(WM_QUIT);
         return 0;
       default:
         return DefWindowProc(hWnd, msg, wParam, lParam);
     }
+    KillTimer(hWnd, IDT_TIMER1);
+    KillTimer(hWnd, IDT_TIMER2);
 }
 
 void Bintana::start(int nCmdShow) {

@@ -17,8 +17,6 @@ public:
   HWND hWnd;
   MSG msg;
 
-  Button button1;
-
   void start(int);
   void create(HINSTANCE);
   void components(HINSTANCE);

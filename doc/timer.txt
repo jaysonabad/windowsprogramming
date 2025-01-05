@@ -1,0 +1,35 @@
+#define IDT_TIMER1 1001
+#define IDT_TIMER2 1002
+
+SetTimer(
+  hwnd, // handle of the window associated to the timer
+  IDT_TIMER1, // timer identifier
+  5000, // 5 seconds timeout
+  (TIMERPROC)NULL // no timer procedure, process WM_TIMER in the procedure
+);
+SetTimer(hwnd, IDT_TIMER2, 10000, (TIMERPROC)NULL);
+
+LRESULT CALLBACK WinProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+
+  case WM_TIMER:
+    switch(wParam){
+      case IDT_TIMER1:
+        // process the 5 seconds timer
+        break;
+      case IDT_TIMER2:
+        // process the 10 seconds timer
+        break;
+    }
+}
+KillTimer(hWnd, IDT_TIMER1);
+KillTimer(hwnd, IDT_TIMER2);
+
+==================================================================
+#define IDT_TIMER1 1001
+
+VOID CALLBACK TimerProc(HWND hwnd, UINT uMsg, UINT idEvent, DWORD dwTime) {
+  MessageBox(NULL, "One second is passed, the timer procedure is called, killing the timer", "Timer Procedure", MB_OK);
+  KillTimer(hwnd, idEvent);
+}
+
+SetTimer(hwnd, IDT_TIMER1, 1000, (TIMERPROC)TimerProc);

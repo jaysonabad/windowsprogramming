@@ -14,11 +14,11 @@
 
 LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
 VOID CALLBACK TimerProc(HWND, UINT, UINT, DWORD);
-Button button1;
-Button button2;
-Frame frame;
-WNDPROC buttonProc;
-HWND hwndEdit;
+Button   button1;
+Button   button2;
+Frame    frame;
+WNDPROC  buttonProc;
+HWND     hwndEdit;
 
 Bintana::Bintana(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 

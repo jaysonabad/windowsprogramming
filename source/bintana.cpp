@@ -2,7 +2,6 @@
 #include <bintana.h>
 #include <components/button.h>
 #include <components/frame.h>
-#include <derive.h>
 
 #define BUTTON1      1001
 #define BUTTON2      1002
@@ -11,6 +10,7 @@
 #define EDIT_BOX1    1200
 #define IDT_TIMER1   1201
 #define IDT_TIMER2   1202
+#define IDT_TIMER3   1203
 
 LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
 VOID CALLBACK TimerProc(HWND, UINT, UINT, DWORD);
@@ -19,9 +19,10 @@ Button   button2;
 Frame    frame;
 WNDPROC  buttonProc;
 HWND     hwndEdit;
+HWND     hwndWindow2;
 
 Bintana::Bintana(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-
+  ZeroMemory(&this->wndw,sizeof(WNDCLASSEX));
   this->szAppName = "WindowsProgramming";
   this->wndw.cbSize = sizeof(WNDCLASSEX);
   this->wndw.style = CS_HREDRAW | CS_VREDRAW;
@@ -35,10 +36,10 @@ Bintana::Bintana(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, 
   this->wndw.lpszMenuName = 0;
   this->wndw.lpszClassName = this->szAppName;
   this->wndw.hIconSm = 0;
-
   RegisterClassEx(&wndw);
   create(hInstance);
   components(hInstance);
+  SetTimer(hWnd,IDT_TIMER3, 5000, (TIMERPROC)TimerProc);
 }
 
 void Bintana::create(HINSTANCE hInstance) {
@@ -85,10 +86,24 @@ void Bintana::components(HINSTANCE hInstance){
     NULL, // hInstance
     NULL // pointer not needed
   );
+
+  hwndWindow2 = CreateWindow(
+    NULL,
+    "The Window 2",
+    WS_OVERLAPPEDWINDOW | WS_SIZEBOX | WS_CLIPSIBLINGS,
+    200,
+    200,
+    500,
+    500,
+    hWnd,
+    NULL,
+    NULL,
+    NULL
+  );
 }
 
 VOID CALLBACK TimerProc(HWND hWnd, UINT uMsg, UINT idEvent, DWORD dwTime){
-  MessageBox(NULL, "One second is passed, the timer procedure is called, killing the timer", "Timer procedure", MB_OK);
+  MessageBox(NULL, "Five seconds have passed, the timer procedure is called, killing the timer", "Timer procedure", MB_OK);
   KillTimer(hWnd, idEvent);
 }
 
@@ -100,7 +115,6 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     RECT aRect;
     HICON hIcon;
     HWND icon_button;
-    Derive derive;
 
     switch (msg) {
       // to draw to the screen
@@ -116,15 +130,19 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
         if((HIWORD(wParam) == BN_CLICKED) && (lParam != 0)) {
           switch(LOWORD(wParam)) {
             case BUTTON1:
-              MessageBox(frame.getHandle(), derive.printsomething(), "Message Box", MB_OK );
+              //MessageBox(frame.getHandle(), derive.printsomething(), "Message Box", MB_OK );
               ShowWindow(frame.getHandle(), SW_HIDE);
+              ShowWindow(hwndWindow2, SW_SHOWNORMAL);
+              //UpdateWindow(hwndWindow2);
               //ShowWindow(hwndEdit, SW_HIDE);
               return 0;
             case BUTTON2:
-              MessageBox(hWnd, "Button 2 Clicked", "Message Box", MB_OK );
+              //MessageBox(hWnd, "Button 2 Clicked", "Message Box", MB_OK );
               ShowWindow(frame.getHandle(), SW_SHOW);
               ShowWindow(hwndEdit, SW_SHOW);
               SendMessage(button2.getHandle(), WM_SETTEXT, 0, (LPARAM)"Hello");
+              ShowWindow(hwndWindow2, SW_HIDE);
+              //UpdateWindow(hwndWindow2);
               return 0;
           }
         }
@@ -138,6 +156,8 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
           case IDT_TIMER2:
             ShowWindow(frame.getHandle(), SW_SHOW);
             return 0;
+          case IDT_TIMER3:
+            return 0;
         }
       case WM_DESTROY:
         PostQuitMessage(WM_QUIT);
@@ -147,12 +167,12 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     }
     KillTimer(hWnd, IDT_TIMER1);
     KillTimer(hWnd, IDT_TIMER2);
+    KillTimer(hWnd, IDT_TIMER3);
 }
 
 void Bintana::start(int nCmdShow) {
   ShowWindow(this->hWnd, nCmdShow);
   UpdateWindow(this->hWnd);
-
   MSG msg;
   while(GetMessage(&msg, 0, 0, 0) == TRUE) {
     TranslateMessage(&msg);

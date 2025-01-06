@@ -14,12 +14,11 @@ windows_flag := -mwindows
 link := -lgdi32 -luser32 -lkernel32
 
 object := main.o bintana.o button.o  \
-          frame.o derive.o components.o
+          frame.o components.o
 
 build: $(object)
-  g++ -s $(c_flags) \
+	g++ -s $(c_flags) \
          $(windows_flag) \
-         $(bin_object)/derive.o \
          $(bin_object)/components.o \
          $(bin_object)/frame.o \
          $(bin_object)/button.o \
@@ -42,8 +41,6 @@ frame.o:
 components.o:
 	g++ -c -I $(header) $(source)/components.cpp -o $(bin_object)/components.o
 
-derive.o:
-	g++ -c -I $(header) $(source)/derive.cpp -o $(bin_object)/derive.o
 
 run:
 	$(bin_debug)/windowstemp

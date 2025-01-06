@@ -1,8 +1,9 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 #include <windows.h>
-class Button {
+#include <components/components.h>
 
+class Button : public Components {
 public:
   Button();
   ~Button();
@@ -12,10 +13,10 @@ public:
   int x;
   int y;
   HWND hwndButton;
-  void setText(LPCTSTR);
-  void setSize(int, int);
-  void setPosition(int, int);
-  void create(HINSTANCE, HWND, HMENU);
-  HWND getHandle();
+  void setText(LPCTSTR) override;
+  void setSize(int, int) override;
+  void setPosition(int, int) override;
+  void create(HINSTANCE, HWND, HMENU) override;
+  HWND getHandle() override;
 };
 #endif

@@ -3,7 +3,7 @@
 #include <windows.h>
 #include <components/components.h>
 
-class Button : public Components {
+class Button : protected Components {
 public:
   Button();
   ~Button();

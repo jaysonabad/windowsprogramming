@@ -11,8 +11,6 @@ protected:
   int x;
   int y;
   HWND hwndComponent;
-
-public:
   Components();
   ~Components();
   virtual void setText(LPCTSTR);

@@ -3,7 +3,7 @@
 #include <windows.h>
 #include <components/components.h>
 
-class ComboBox : public Components{
+class ComboBox : protected Components {
 
 public:
   ComboBox();
@@ -13,6 +13,7 @@ public:
   void setPosition(int, int) override;
   void create(HINSTANCE, HWND, HMENU) override;
   HWND getHandle() override;
+  
 };
 
 #endif

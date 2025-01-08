@@ -3,7 +3,7 @@
 #include <windows.h>
 #include <components/components.h>
 
-class Frame : public Components{
+class Frame : protected Components{
 
 public:
   Frame();

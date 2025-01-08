@@ -9,6 +9,7 @@ ComboBox combox;
 WNDPROC  buttonProc;
 HWND     hwndEdit;
 HWND     hwndWindow2;
+HWND     hwndProgress;
 
 Bintana::Bintana(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
   ZeroMemory(&this->wndw,sizeof(WNDCLASSEX));
@@ -90,19 +91,21 @@ void Bintana::Components(HINSTANCE hInstance){
     NULL // pointer not needed
   );
 
-  hwndWindow2 = CreateWindow(
+  hwndProgress = CreateWindow(
+    PROGRESS_CLASS,
     NULL,
-    "The Window 2",
-    WS_OVERLAPPEDWINDOW | WS_SIZEBOX | WS_CLIPSIBLINGS,
-    200,
-    200,
-    500,
-    500,
+    WS_CHILD | WS_VISIBLE,
+    500, 500,
+    200, 20,
     hWnd,
-    NULL,
-    NULL,
+    (HMENU)PROGRESS_ID1,
+    hInstance,
     NULL
   );
+  SendMessage(hwndProgress, PBM_DELTAPOS, 25, (LPARAM)"My Progress");
+  SendMessage(hwndProgress, PBM_SETPOS, 50, (LPARAM)"My Progress");
+  SendMessage(hwndProgress, PBM_SETSTEP, 1, (LPARAM)"My Progress");
+  SendMessage(hwndProgress, PBM_STEPIT, (WPARAM)0, (LPARAM)"My Progress");
 }
 
 VOID CALLBACK TimerProc(HWND hWnd, UINT uMsg, UINT idEvent, DWORD dwTime){

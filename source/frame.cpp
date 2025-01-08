@@ -1,4 +1,4 @@
-#include <bintana.h>
+#include <bintana.h> // no need to call other header files since 'bintana.h' contains all needed files
 
 #define BUTTON1      1001
 #define BUTTON2      1002

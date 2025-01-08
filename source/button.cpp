@@ -1,4 +1,4 @@
-#include <bintana.h>
+#include <bintana.h> // no need to call other header files since 'bintana.h' contains all needed files
 
 Button::Button(){}
 void Button::setText(LPCTSTR text) {

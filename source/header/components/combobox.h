@@ -1,7 +1,7 @@
 #ifndef COMBOBOX_H
 #define COMBOBOX_H
 #include <windows.h>
-#include <components.h>
+#include <components/components.h>
 
 class ComboBox : public Components{
 

@@ -14,12 +14,13 @@ windows_flag := -mwindows
 link := -lgdi32 -luser32 -lkernel32
 
 object := main.o bintana.o button.o  \
-          frame.o components.o
+          frame.o components.o combobox.o
 
 build: $(object)
 	g++ -s $(c_flags) \
          $(windows_flag) \
-         $(bin_object)/components.o \
+				 $(bin_object)/combobox.o \
+				 $(bin_object)/components.o \
          $(bin_object)/frame.o \
          $(bin_object)/button.o \
          $(bin_object)/bintana.o \
@@ -41,6 +42,8 @@ frame.o:
 components.o:
 	g++ -c -I $(header) $(source)/components.cpp -o $(bin_object)/components.o
 
+combobox.o:
+	g++ -c -I $(header) $(source)/combobox.cpp -o $(bin_object)/combobox.o
 
 run:
 	$(bin_debug)/windowstemp

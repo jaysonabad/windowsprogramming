@@ -2,11 +2,13 @@
 #include <bintana.h>
 #include <components/button.h>
 #include <components/frame.h>
+#include <components/combobox.h>
 
 #define BUTTON1      1001
 #define BUTTON2      1002
 #define BUTTON3      1004
 #define FRAME1       1100
+#define COMBOX1      1300
 #define EDIT_BOX1    1200
 #define IDT_TIMER1   1201
 #define IDT_TIMER2   1202
@@ -17,6 +19,7 @@ VOID CALLBACK TimerProc(HWND, UINT, UINT, DWORD);
 Button   button1;
 Button   button2;
 Frame    frame;
+ComboBox combox;
 WNDPROC  buttonProc;
 HWND     hwndEdit;
 HWND     hwndWindow2;
@@ -39,7 +42,7 @@ Bintana::Bintana(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, 
   RegisterClassEx(&wndw);
   create(hInstance);
   components(hInstance);
-  SetTimer(hWnd,IDT_TIMER3, 5000, (TIMERPROC)TimerProc);
+  //SetTimer(hWnd,IDT_TIMER3, 5000, (TIMERPROC)TimerProc);
 }
 
 void Bintana::create(HINSTANCE hInstance) {
@@ -60,25 +63,39 @@ void Bintana::create(HINSTANCE hInstance) {
 
 void Bintana::components(HINSTANCE hInstance){
   frame.setSize(500, 400);
-  frame.setPosition(10, 10);
+  frame.setPosition(10, 50);
   frame.create(NULL, hWnd, (HMENU)FRAME1);
 
   button1.setText("Noysoft");
   button1.setSize(100, 100);
-  button1.setPosition(10, 10);
+  button1.setPosition(10, 50);
   button1.create(NULL, hWnd, (HMENU)BUTTON1);
 
   button2.setText("Button2");
   button2.setSize(100, 100);
-  button2.setPosition(100, 10);
+  button2.setPosition(100, 50);
   button2.create(NULL, hWnd, (HMENU)BUTTON2);
+
+  combox.setText("Rank");
+  combox.setSize(200, 200);
+  combox.setPosition(10, 10);
+  combox.create(NULL, hWnd, (HMENU)COMBOX1);
+  SendMessage(combox.getHandle(), CB_ADDSTRING, 0, (LPARAM) "S-Class");
+  SendMessage(combox.getHandle(), CB_ADDSTRING, 0, (LPARAM) "A-Class");
+  SendMessage(combox.getHandle(), CB_ADDSTRING, 0, (LPARAM) "B-Class");
+  SendMessage(combox.getHandle(), CB_ADDSTRING, 0, (LPARAM) "C-Class");
+  SendMessage(combox.getHandle(), CB_ADDSTRING, 0, (LPARAM) "D-Class");
+  SendMessage(combox.getHandle(), CB_ADDSTRING, 0, (LPARAM) "E-CLass");
+  SendMessage(combox.getHandle(), CB_ADDSTRING, 0, (LPARAM) "F-Class");
+  // Default Item
+  SendMessage(combox.getHandle(), CB_SETCURSEL, 2, 0);
 
   hwndEdit = CreateWindow(
     "edit",
     NULL,
     WS_BORDER|WS_CHILD|WS_VISIBLE|WS_HSCROLL|WS_VSCROLL|ES_MULTILINE|ES_AUTOHSCROLL,
     20, // x position
-    120, // y position
+    170, // y position
     490, // button width
     290, // button height
     hWnd, // parent window
@@ -116,14 +133,14 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     HICON hIcon;
     HWND icon_button;
 
+    //SetTimer(hWnd,IDT_TIMER1, 500,(TIMERPROC)NULL);
+    //SetTimer(hWnd,IDT_TIMER2, 1000, (TIMERPROC)NULL);
+
     switch (msg) {
       // to draw to the screen
       case WM_PAINT:
         hdc = BeginPaint(hWnd, &ps);
         EndPaint(hWnd, &ps);
-
-        SetTimer(hWnd,IDT_TIMER1, 500,(TIMERPROC)NULL);
-        SetTimer(hWnd,IDT_TIMER2, 1000, (TIMERPROC)NULL);
         return 0;
       // Button events
       case WM_COMMAND:
@@ -151,10 +168,10 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
       case WM_TIMER:
         switch (wParam) {
           case IDT_TIMER1:
-            ShowWindow(frame.getHandle(), SW_HIDE);
+        //    ShowWindow(frame.getHandle(), SW_HIDE);
             return 0;
           case IDT_TIMER2:
-            ShowWindow(frame.getHandle(), SW_SHOW);
+        //    ShowWindow(frame.getHandle(), SW_SHOW);
             return 0;
           case IDT_TIMER3:
             return 0;

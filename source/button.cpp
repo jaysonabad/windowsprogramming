@@ -14,23 +14,23 @@ void Button::setPosition(int x, int y) {
   this->y = y;
 }
 void Button::create(HINSTANCE hInstance, HWND parent, HMENU id) {
-  this->hwndComponents = CreateWindow(
-    "button",
-    this->text,
-    WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
+  this->hwndComponent = CreateWindow(
+    "button", // component type
+    this->text, // label of the component
+    WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON, // style of component
     this->x, // x position
     this->y, // y position
-    this->width, // button width
-    this->height, // button height
+    this->width, // width of the component
+    this->height, // height of the component
     parent, // parent window
-    id, // menu
-    hInstance,
-    NULL // pointer not needed
+    id, // menu id
+    hInstance, // component instance that handle to the window
+    NULL // pointer
   );
 }
 
 HWND Button::getHandle() {
-  return this->hwndComponents;
+  return this->hwndComponent;
 }
 
 Button::~Button(){}

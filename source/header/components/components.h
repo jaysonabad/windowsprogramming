@@ -10,7 +10,7 @@ protected:
   int height;
   int x;
   int y;
-  HWND hwndComponents;
+  HWND hwndComponent;
 
 public:
   Components();

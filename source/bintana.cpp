@@ -1,8 +1,4 @@
-#include <windows.h>
-#include <bintana.h>
-#include <components/button.h>
-#include <components/frame.h>
-#include <components/combobox.h>
+#include <bintana.h> // no need to call other header files since 'bintana.h' contains all needed files
 
 #define BUTTON1      1001
 #define BUTTON2      1002

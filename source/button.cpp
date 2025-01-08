@@ -1,5 +1,4 @@
-#include <windows.h>
-#include <components/button.h>
+#include <bintana.h>
 
 Button::Button(){}
 void Button::setText(LPCTSTR text) {

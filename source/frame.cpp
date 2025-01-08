@@ -1,5 +1,4 @@
-#include <windows.h>
-#include <components/frame.h>
+#include <bintana.h>
 
 #define BUTTON1      1001
 #define BUTTON2      1002

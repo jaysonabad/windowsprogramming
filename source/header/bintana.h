@@ -3,6 +3,7 @@
 
 #include <windows.h>
 #include <components/button.h>
+#include <components/combobox.h>
 #include <components/frame.h>
 
 class Bintana {

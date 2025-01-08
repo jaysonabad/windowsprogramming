@@ -1,5 +1,4 @@
-#include <windows.h>
-#include <components/components.h>
+#include <bintana.h>
 
 Components::Components(){}
 

@@ -26,12 +26,12 @@ Bintana::Bintana(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, 
   this->wndw.lpszClassName = this->szAppName;
   this->wndw.hIconSm = 0;
   RegisterClassEx(&wndw);
-  create(hInstance);
-  components(hInstance);
+  CreateMainWindow(hInstance);
+  Components(hInstance);
   //SetTimer(hWnd,IDT_TIMER3, 5000, (TIMERPROC)TimerProc);
 }
 
-void Bintana::create(HINSTANCE hInstance) {
+void Bintana::CreateMainWindow(HINSTANCE hInstance) {
   this->hWnd = CreateWindow(
     szAppName,
     "Test with class",
@@ -47,7 +47,7 @@ void Bintana::create(HINSTANCE hInstance) {
   );
 }
 
-void Bintana::components(HINSTANCE hInstance){
+void Bintana::Components(HINSTANCE hInstance){
   frame.setSize(500, 400);
   frame.setPosition(10, 50);
   frame.create(NULL, hWnd, (HMENU)FRAME1);
@@ -106,7 +106,9 @@ void Bintana::components(HINSTANCE hInstance){
 }
 
 VOID CALLBACK TimerProc(HWND hWnd, UINT uMsg, UINT idEvent, DWORD dwTime){
-  MessageBox(NULL, "Five seconds have passed, the timer procedure is called, killing the timer", "Timer procedure", MB_OK);
+  MessageBox(NULL, "Five seconds have passed," \
+                    "the timer procedure is called," \
+                    "killing the timer", "Timer procedure", MB_OK);
   KillTimer(hWnd, idEvent);
 }
 
@@ -173,7 +175,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     KillTimer(hWnd, IDT_TIMER3);
 }
 
-void Bintana::start(int nCmdShow) {
+void Bintana::Start(int nCmdShow) {
   ShowWindow(this->hWnd, nCmdShow);
   UpdateWindow(this->hWnd);
   MSG msg;

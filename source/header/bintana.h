@@ -20,18 +20,18 @@
 class Bintana {
 
 private:
-  LPCTSTR szAppName;
-  HINSTANCE hInstance;
-  WNDCLASSEX wndw;
-  HWND hWnd;
-  MSG msg;
+  LPCTSTR      szAppName;
+  HINSTANCE    hInstance;
+  WNDCLASSEX   wndw;
+  HWND         hWnd;
+  MSG          msg;
 
 public:
   Bintana(HINSTANCE, HINSTANCE, LPSTR, int);
   ~Bintana();
-  void start(int);
-  void create(HINSTANCE);
-  void components(HINSTANCE);
+  void Start(int);
+  void CreateMainWindow(HINSTANCE);
+  void Components(HINSTANCE);
 };
 
 #endif

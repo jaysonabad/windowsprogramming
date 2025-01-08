@@ -5,7 +5,7 @@
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 
   Bintana bintana(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
-  bintana.start(nCmdShow);
+  bintana.Start(nCmdShow);
 
   return 0;
 }

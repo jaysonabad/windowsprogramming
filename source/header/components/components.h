@@ -4,6 +4,14 @@
 
 class Components{
 
+protected:
+  LPCTSTR text;
+  int width;
+  int height;
+  int x;
+  int y;
+  HWND hwndComponents;
+
 public:
   Components();
   ~Components();

@@ -7,6 +7,10 @@
 
 Frame::Frame(){}
 
+void Frame::setText(LPCTSTR text) {
+  this->text = text;
+}
+
 void Frame::setSize(int width, int height){
   this->width = width;
   this->height = height;
@@ -16,7 +20,7 @@ void Frame::setPosition(int x, int y) {
   this->y = y;
 }
 void Frame::create(HINSTANCE hInstance, HWND parent, HMENU id) {
-  this->hwndFrame = CreateWindow(
+  this->hwndComponents = CreateWindow(
     "static",
     NULL,
     WS_CHILD | WS_VISIBLE,
@@ -31,6 +35,6 @@ void Frame::create(HINSTANCE hInstance, HWND parent, HMENU id) {
   );
 }
 HWND Frame::getHandle(){
-  return this->hwndFrame;
+  return this->hwndComponents;
 }
 Frame::~Frame(){}

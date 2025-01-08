@@ -1,17 +1,18 @@
-#ifndef FRAME_H
-#define FRAME_H
+#ifndef COMBOBOX_H
+#define COMBOBOX_H
 #include <windows.h>
-#include <components/components.h>
+#include <components.h>
 
-class Frame : public Components{
+class ComboBox : public Components{
 
 public:
-  Frame();
-  ~Frame();
+  ComboBox();
+  ~ComboBox();
   void setText(LPCTSTR) override;
   void setSize(int, int) override;
   void setPosition(int, int) override;
   void create(HINSTANCE, HWND, HMENU) override;
   HWND getHandle() override;
 };
+
 #endif

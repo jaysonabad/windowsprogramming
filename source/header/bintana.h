@@ -1,12 +1,13 @@
 #ifndef WINDOW_H
 #define WINDOW_H
-
+// Windows Header Files
 #include <windows.h>
 #include <commctrl.h>
+// Bintana Library Header Files
 #include <components/button.h>
 #include <components/combobox.h>
 #include <components/frame.h>
-
+#include <components/progressbar.h>
 // Defined Components IDs
 #define BUTTON1      1001
 #define BUTTON2      1002

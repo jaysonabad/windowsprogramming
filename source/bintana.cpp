@@ -2,14 +2,14 @@
 
 LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
 VOID CALLBACK TimerProc(HWND, UINT, UINT, DWORD);
-Button   button1;
-Button   button2;
-Frame    frame;
-ComboBox combox;
-WNDPROC  buttonProc;
-HWND     hwndEdit;
-HWND     hwndWindow2;
-HWND     hwndProgress;
+Button        button1;
+Button        button2;
+Frame         frame;
+ComboBox      combox;
+ProgressBar   progressbar;
+WNDPROC       buttonProc;
+HWND          hwndEdit;
+HWND          hwndWindow2;
 
 Bintana::Bintana(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
   ZeroMemory(&this->wndw,sizeof(WNDCLASSEX));
@@ -91,21 +91,15 @@ void Bintana::Components(HINSTANCE hInstance){
     NULL // pointer not needed
   );
 
-  hwndProgress = CreateWindow(
-    PROGRESS_CLASS,
-    NULL,
-    WS_CHILD | WS_VISIBLE,
-    500, 500,
-    200, 20,
-    hWnd,
-    (HMENU)PROGRESS_ID1,
-    hInstance,
-    NULL
-  );
-  SendMessage(hwndProgress, PBM_DELTAPOS, 25, (LPARAM)"My Progress");
-  SendMessage(hwndProgress, PBM_SETPOS, 50, (LPARAM)"My Progress");
-  SendMessage(hwndProgress, PBM_SETSTEP, 1, (LPARAM)"My Progress");
-  SendMessage(hwndProgress, PBM_STEPIT, (WPARAM)0, (LPARAM)"My Progress");
+  progressbar.setText("progressbar1");
+  progressbar.setSize(200, 20);
+  progressbar.setPosition(500, 500);
+  progressbar.create(NULL, hWnd, (HMENU)PROGRESS_ID1);
+
+  SendMessage(progressbar.getHandle(), PBM_DELTAPOS, 25, (LPARAM)"My Progress");
+  SendMessage(progressbar.getHandle(), PBM_SETPOS, 50, (LPARAM)"My Progress");
+  SendMessage(progressbar.getHandle(), PBM_SETSTEP, 1, (LPARAM)"My Progress");
+  SendMessage(progressbar.getHandle(), PBM_STEPIT, (WPARAM)0, (LPARAM)"My Progress");
 }
 
 VOID CALLBACK TimerProc(HWND hWnd, UINT uMsg, UINT idEvent, DWORD dwTime){

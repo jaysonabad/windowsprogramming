@@ -115,6 +115,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     HDC hdc;
     PAINTSTRUCT ps;
     RECT aRect;
+    HBRUSH hbr;
     HICON hIcon;
     HWND icon_button;
 
@@ -125,6 +126,14 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
       // to draw to the screen
       case WM_PAINT:
         hdc = BeginPaint(hWnd, &ps);
+        aRect = {
+          530, // x1
+          130, // y1
+          780, // x2
+          380}; // y2
+        hbr = CreateSolidBrush(RGB(125, 0, 0));
+        FillRect(ps.hdc, &aRect, hbr);
+        DeleteObject(hbr);
         EndPaint(hWnd, &ps);
         return 0;
       // Button events

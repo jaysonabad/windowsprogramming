@@ -8,13 +8,19 @@ bin_release := $(bin)/release
 include := $(path)/include
 source := $(path)/source
 header := $(source)/header
+resource := $(path)/resource
 
 c_flags := -O3 -Wall -std=c++1z -static-libstdc++ -static-libgcc
 windows_flag := -mwindows
 link := -lgdi32 -luser32 -lkernel32
 
-object := main.o bintana.o button.o  \
-          frame.o components.o combobox.o \
+object := resource.res \
+          main.o \
+          bintana.o \
+          button.o  \
+          frame.o \
+          components.o \
+          combobox.o \
 					progressbar.o
 
 build: $(object)
@@ -27,7 +33,9 @@ build: $(object)
          $(bin_object)/button.o \
          $(bin_object)/bintana.o \
          $(bin_object)/main.o \
-      -o $(bin_debug)/windowstemp
+				 $(build_objects)/resource.res \
+      -o $(bin_debug)/windowstemp \
+         $(link)
 
 main.o:
 	g++ -c -I $(header) $(source)/main.cpp -o $(bin_object)/main.o
@@ -49,6 +57,9 @@ combobox.o:
 
 progressbar.o:
 	g++ -c -I $(header) $(source)/progressbar.cpp -o $(bin_object)/progressbar.o
+
+resource.res:
+	windres $(resource)/resource.rc -O coff -o $(build_objects)/resource.res
 
 run:
 	$(bin_debug)/windowstemp

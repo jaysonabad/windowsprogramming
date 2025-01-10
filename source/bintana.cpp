@@ -2,6 +2,7 @@
 
 LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
 VOID CALLBACK TimerProc(HWND, UINT, UINT, DWORD);
+VOID CALLBACK DialogProc(HWND, UINT, UINT, DWORD);
 Button        button1;
 Button        button2;
 Frame         frame;
@@ -10,6 +11,7 @@ ProgressBar   progressbar;
 WNDPROC       buttonProc;
 HWND          hwndEdit;
 HWND          hwndWindow2;
+HWND          hwndDialog;
 
 Bintana::Bintana(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
   ZeroMemory(&this->wndw,sizeof(WNDCLASSEX));
@@ -18,7 +20,7 @@ Bintana::Bintana(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, 
   this->wndw.style = CS_HREDRAW | CS_VREDRAW;
   this->wndw.lpfnWndProc = WindowProc;
   this->wndw.cbClsExtra = 0;
-  this->wndw.cbWndExtra = 0;
+  this->wndw.cbWndExtra = DLGWINDOWEXTRA;
   this->wndw.hInstance = hInstance;
   this->wndw.hIcon = LoadIcon(0, IDI_APPLICATION);
   this->wndw.hCursor = LoadCursor(0, IDC_ARROW);
@@ -100,6 +102,12 @@ void Bintana::Components(HINSTANCE hInstance){
   SendMessage(progressbar.getHandle(), PBM_SETPOS, 50, (LPARAM)"My Progress");
   SendMessage(progressbar.getHandle(), PBM_SETSTEP, 1, (LPARAM)"My Progress");
   SendMessage(progressbar.getHandle(), PBM_STEPIT, (WPARAM)0, (LPARAM)"My Progress");
+
+  hwndDialog = CreateDialog(hInstance, (LPCTSTR)"TestDialogClass", hWnd, DialogProc);
+}
+
+VOID CALLBACK DialogProc(HWND hWnd, UINT uMsg, UINT idEvent, DWORD dwTime){
+
 }
 
 VOID CALLBACK TimerProc(HWND hWnd, UINT uMsg, UINT idEvent, DWORD dwTime){

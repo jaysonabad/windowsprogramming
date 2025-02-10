@@ -76,6 +76,7 @@ void Bintana::Components(HINSTANCE hInstance){
   SendMessage(combox.getHandle(), CB_ADDSTRING, 0, (LPARAM) "D-Class");
   SendMessage(combox.getHandle(), CB_ADDSTRING, 0, (LPARAM) "E-CLass");
   SendMessage(combox.getHandle(), CB_ADDSTRING, 0, (LPARAM) "F-Class");
+  SendMessage(combox.getHandle(), CB_ADDSTRING, 0, (LPARAM) "Waking up the project.");
   // Default Item
   SendMessage(combox.getHandle(), CB_SETCURSEL, 2, 0);
 

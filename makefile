@@ -1,6 +1,6 @@
 
 appname := windowstemp
-path := ../$(appname)
+path := ../windowsprogramming
 bin := $(path)/bin
 bin_object := $(bin)/object
 bin_debug := $(bin)/debug
@@ -14,7 +14,7 @@ c_flags := -O3 -Wall -std=c++1z -static-libstdc++ -static-libgcc
 windows_flag := -mwindows
 link := -lgdi32 -luser32 -lkernel32
 
-object := resource.res \
+object := resource.rc \
           main.o \
           bintana.o \
           button.o  \
@@ -33,7 +33,7 @@ build: $(object)
          $(bin_object)/button.o \
          $(bin_object)/bintana.o \
          $(bin_object)/main.o \
-				 $(build_objects)/resource.res \
+				 $(build_objects)/resource.rc \
       -o $(bin_debug)/windowstemp \
          $(link)
 
@@ -58,8 +58,8 @@ combobox.o:
 progressbar.o:
 	g++ -c -I $(header) $(source)/progressbar.cpp -o $(bin_object)/progressbar.o
 
-resource.res:
-	windres $(resource)/resource.rc -O coff -o $(build_objects)/resource.res
+resource.rc:
+	windres $(resource)/resource.rc -O coff -o $(build_objects)/resource.rc
 
 run:
 	$(bin_debug)/windowstemp

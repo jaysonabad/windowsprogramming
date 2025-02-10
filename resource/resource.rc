@@ -8,12 +8,12 @@ BEGIN
     BEGIN
       VALUE "CompanyName", "Noysoft"
       VALUE "FileDescription", "OpenGL Programming Practice"
-      VALUE "FileVersion", "0.1"
+      VALUE "FileVersion", "0.0.1"
       VALUE "InternalName", "OpenGL"
-      VALUE "LegalCopyright", "Xenon Zenon"
+      VALUE "LegalCopyright", "Jayson Abad"
       VALUE "OriginalFilename", "OpenGLProgramming.exe"
       VALUE "ProductName", "OpenGL Programming"
-      VALUE "ProductVersion", "0.1"
+      VALUE "ProductVersion", "0.0.1"
     END
   END
   BLOCK "VarFileInfo"

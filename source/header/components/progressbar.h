@@ -4,6 +4,7 @@
 #include <components/components.h>
 
 class ProgressBar : protected Components {
+
 public:
   ProgressBar();
   ~ProgressBar();
@@ -13,4 +14,5 @@ public:
   void create(HINSTANCE, HWND, HMENU) override;
   HWND getHandle() override;
 };
+
 #endif

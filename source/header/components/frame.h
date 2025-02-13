@@ -14,4 +14,5 @@ public:
   void create(HINSTANCE, HWND, HMENU) override;
   HWND getHandle() override;
 };
+
 #endif

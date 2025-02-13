@@ -1,6 +1,7 @@
 #include <bintana.h> // no need to call other header files since 'bintana.h' contains all needed files
 
 LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
+LRESULT CALLBACK Window2Proc(HWND, UINT, WPARAM, LPARAM);
 VOID CALLBACK TimerProc(HWND, UINT, UINT, DWORD);
 BOOL CALLBACK DialogProc(HWND, UINT, WPARAM, LPARAM);
 Button        button1;
@@ -12,6 +13,10 @@ WNDPROC       buttonProc;
 HWND          hwndEdit;
 HWND          hwndWindow2;
 HWND          hwndDialog;
+
+bool          windowclosed = false;
+bool          endprogram = false;
+HWND          handleTwo;
 
 Bintana::Bintana(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
   ZeroMemory(&this->wndw,sizeof(WNDCLASSEX));
@@ -48,6 +53,46 @@ void Bintana::CreateMainWindow(HINSTANCE hInstance) {
     hInstance,
     0
   );
+
+  WNDCLASSEX windowclass2;
+  ZeroMemory(&windowclass2, sizeof(WNDCLASSEX));
+  windowclass2.cbClsExtra = 0;
+  windowclass2.cbSize = sizeof(WNDCLASSEX);
+  windowclass2.cbWndExtra = 0;
+  windowclass2.hbrBackground = static_cast<HBRUSH>(GetStockObject(GRAY_BRUSH));
+  windowclass2.hCursor = LoadCursor(NULL, IDC_ARROW);
+  windowclass2.hIcon = 0;
+  windowclass2.hIconSm = 0;
+  windowclass2.hInstance = hInstance;
+  windowclass2.lpfnWndProc = (WNDPROC)Window2Proc;
+  windowclass2.lpszClassName = "WindowClass2";
+  windowclass2.lpszMenuName = NULL;
+  windowclass2.style = CS_HREDRAW | CS_VREDRAW;
+
+  if(!RegisterClassEx(&windowclass2)){
+    int nResult = GetLastError();
+    MessageBox(NULL, "Window Class Creation Failed", "Window Class Failed", MB_ICONERROR);
+  }
+
+  handleTwo = CreateWindowEx(
+    0,
+    windowclass2.lpszClassName,
+    "Window Two",
+    WS_CAPTION,
+    200,
+    150,
+    640,
+    480,
+    0,
+    0,
+    hInstance,
+    0
+  );
+
+  if(!handleTwo){
+    int nResult = GetLastError();
+    MessageBox(NULL, "Window 2 Creation Failed", "Window Creation Failed", MB_ICONERROR);
+  }
 }
 
 void Bintana::Components(HINSTANCE hInstance){
@@ -162,6 +207,8 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
               //MessageBox(frame.getHandle(), derive.printsomething(), "Message Box", MB_OK );
               ShowWindow(frame.getHandle(), SW_HIDE);
               ShowWindow(hwndWindow2, SW_SHOWNORMAL);
+              ShowWindow(handleTwo, SW_SHOWNORMAL);
+              UpdateWindow(handleTwo);
               //UpdateWindow(hwndWindow2);
               //ShowWindow(hwndEdit, SW_HIDE);
               return 0;
@@ -171,6 +218,8 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
               ShowWindow(hwndEdit, SW_SHOW);
               SendMessage(button2.getHandle(), WM_SETTEXT, 0, (LPARAM)"Hello");
               ShowWindow(hwndWindow2, SW_HIDE);
+              ShowWindow(handleTwo, SW_HIDE);
+              UpdateWindow(handleTwo);
               //UpdateWindow(hwndWindow2);
               return 0;
           }
@@ -199,10 +248,27 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     KillTimer(hWnd, IDT_TIMER3);
 }
 
+LRESULT CALLBACK Window2Proc(HWND handleTwo, UINT msg, WPARAM wParam, LPARAM lParam){
+  switch (msg) {
+    case WM_DESTROY:
+      MessageBox(
+        NULL,
+        "Window 1 closed",
+        "Message",
+        MB_ICONINFORMATION
+      );
+      windowclosed = true;
+      return 0;
+  }
+  return DefWindowProc(handleTwo, msg, wParam, lParam);
+}
+
 void Bintana::Start(int nCmdShow) {
+  MSG msg;
+  ZeroMemory(&msg, sizeof(MSG));
   ShowWindow(this->hWnd, nCmdShow);
   UpdateWindow(this->hWnd);
-  MSG msg;
+  UpdateWindow(handleTwo);
   while(GetMessage(&msg, 0, 0, 0) == TRUE) {
     TranslateMessage(&msg);
     DispatchMessage(&msg);

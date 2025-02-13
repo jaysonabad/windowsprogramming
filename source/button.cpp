@@ -12,6 +12,7 @@ void Button::setPosition(int x, int y) {
   this->x = x;
   this->y = y;
 }
+
 void Button::create(HINSTANCE hInstance, HWND parent, HMENU id) {
   this->hwndComponent = CreateWindow(
     "button", // component type
